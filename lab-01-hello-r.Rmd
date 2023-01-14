@@ -15,8 +15,17 @@ library(datasauRus)
 ## Exercises
 
 ### Exercise 1
+##### Datasaurus Dozen
 
-Remove this text, and add your answer for Exercise 1 here.
+1846 rows and 
+
+3 variables: 
+
+dataset: indicates which dataset the data are from
+
+x: x-values
+
+y: y-value
 
 ### Exercise 2
 
