@@ -51,34 +51,39 @@ dino_data %>%
 Plotted data in the star dataset:
 
 ```{r plot-star}
-plot_star <- datasaurus_dozen %>%
+star_data <- datasaurus_dozen %>%
   filter(dataset=="star")
-ggplot(data=plot_star, mapping=aes(x=x,y=y))+
+ggplot(data=star_data, mapping=aes(x=x,y=y))+
   geom_point()
 ```
 
 Correlation of 'x' and 'y' for star_data
 
 ```{r cor-star}
-dino_data %>%
+star_data %>%
   summarize(r = cor(x, y))
 ```
 
-Correlation seems the same as the dino_dataset
+R seems to be less than the dino_dataset. -0.0015
 
 ### Exercise 4
 
-Add code and narrative as needed.
-Note that two R chunks are given but they are not labeled.
-Use the convention from above to name them appropriately.
+Plotted data for circle_data
 
-```{r}
-
+```{r plot-circle}
+circle_data <- datasaurus_dozen %>%
+  filter(dataset=="circle")
+ggplot(data=circle_data, mapping=aes(x=x,y=y))+
+  geom_point()
 ```
 
-```{r}
-
+Correlation for 'x' and 'y' for circle_dataset 
+```{r cor-circle}
+circle_data %>%
+  summarize(r = cor(x, y))
 ```
+
+Compared to dino_data, circle data's r value is 0.038 more 
 
 ### Exercise 5
 
