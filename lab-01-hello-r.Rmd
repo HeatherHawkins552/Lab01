@@ -64,6 +64,8 @@ dino_data %>%
   summarize(r = cor(x, y))
 ```
 
+Correlation seems the same as the dino_dataset
+
 ### Exercise 4
 
 Add code and narrative as needed.
