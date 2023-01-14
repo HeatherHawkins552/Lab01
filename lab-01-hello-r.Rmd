@@ -14,12 +14,17 @@ library(datasauRus)
 
 ## Exercises
 
+---
+---
+---
+
 ### Exercise 1
+
 ##### Datasaurus Dozen
 
-1846 rows and 3 columns 
+1846 rows and 3 columns
 
-3 variables: 
+3 variables:
 
 dataset: indicates which dataset the data are from
 
@@ -31,7 +36,7 @@ y: y-value
 
 Plotted data in the dino dataset:
 
-```{r plot-dino, fig.height=3, fig.width=6}
+```{r plot-dino, fig.height=5, fig.width=7}
 dino_data <- datasaurus_dozen %>%
   filter(dataset == "dino")
 
@@ -41,7 +46,7 @@ ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
 
 The correlation between `x` and `y` in this dataset:
 
-```{r cor-dino}
+```{r cor-dino, fig.height=5, fig.width=7}
 dino_data %>%
   summarize(r = cor(x, y))
 ```
@@ -50,59 +55,60 @@ dino_data %>%
 
 Plotted data in the star dataset:
 
-```{r plot-star}
+```{r plot-star, fig.height=5, fig.width=7}
 star_data <- datasaurus_dozen %>%
   filter(dataset=="star")
+
 ggplot(data=star_data, mapping=aes(x=x,y=y))+
   geom_point()
 ```
 
 Correlation of 'x' and 'y' for star_data
 
-```{r cor-star}
+```{r cor-star, fig.height=5, fig.width=7}
 star_data %>%
   summarize(r = cor(x, y))
 ```
 
-R seems to be less than the dino_dataset. -0.0015
+R seems to be less than the dino_dataset. (0.0015 less)
 
 ### Exercise 4
 
 Plotted data for circle_data
 
-```{r plot-circle}
+```{r plot-circle, fig.height=5, fig.width=7}
 circle_data <- datasaurus_dozen %>%
   filter(dataset=="circle")
+
 ggplot(data=circle_data, mapping=aes(x=x,y=y))+
   geom_point()
 ```
 
-Correlation for 'x' and 'y' for circle_dataset 
-```{r cor-circle}
+Correlation for 'x' and 'y' for circle_dataset
+
+```{r cor-circle, fig.height=5, fig.width=7}
 circle_data %>%
   summarize(r = cor(x, y))
 ```
 
-Compared to dino_data, circle data's r value is 0.038 more 
+Compared to dino_data, circle data's r value is slightly bigger (0.0038 more)
 
 ### Exercise 5
 
-Add code and narrative as needed.
+Plot of all datasets
 
-To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, green C+.
+```{r all plots, fig.height=10, fig.width=7}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
 
+Every dataset's correlation coefficients
 
-
-## Bonus Tips by Yoo Ri
-
-Here are some helpful tips :) 
-
-* filter() is for extracting rows
-
-* group_by() is for grouping datasets by assigned column 
-* ungroup() cancels the grouping 
-
-* summarize()  is often used with group_by(). This function can print the output according to the group_by().
-
-* facet_grid(y~x,...) creates a grid with variable y as a row, variable x as a column  
-* facet_wrap(x,... ) is useful when there is only one variable
+```{r All correlations, echo=TRUE, fig.height=5, fig.width=7}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y)) %>%
+  print(13)
+```
