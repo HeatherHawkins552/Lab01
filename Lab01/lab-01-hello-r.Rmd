@@ -1,0 +1,114 @@
+---
+title: "Lab 01 - Hello R"
+author: "Heather Hawkins"
+date: "01/12/2023"
+output: github_document
+---
+
+## Load packages and data
+
+```{r load-packages, message=FALSE}
+library(tidyverse) 
+library(datasauRus)
+```
+
+## Exercises
+
+---
+---
+---
+
+### Exercise 1
+
+##### Datasaurus Dozen
+
+1846 rows and 3 columns
+
+3 variables:
+
+dataset: indicates which dataset the data are from
+
+x: x-values
+
+y: y-value
+
+### Exercise 2
+
+Plotted data in the dino dataset:
+
+```{r plot-dino, fig.height=5, fig.width=7}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "dino")
+
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+
+The correlation between `x` and `y` in this dataset:
+
+```{r cor-dino, fig.height=5, fig.width=7}
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+
+### Exercise 3
+
+Plotted data in the star dataset:
+
+```{r plot-star, fig.height=5, fig.width=7}
+star_data <- datasaurus_dozen %>%
+  filter(dataset=="star")
+
+ggplot(data=star_data, mapping=aes(x=x,y=y))+
+  geom_point()
+```
+
+Correlation of 'x' and 'y' for star_data
+
+```{r cor-star, fig.height=5, fig.width=7}
+star_data %>%
+  summarize(r = cor(x, y))
+```
+
+R seems to be less than the dino_dataset. (0.0015 less)
+
+### Exercise 4
+
+Plotted data for circle_data
+
+```{r plot-circle, fig.height=5, fig.width=7}
+circle_data <- datasaurus_dozen %>%
+  filter(dataset=="circle")
+
+ggplot(data=circle_data, mapping=aes(x=x,y=y))+
+  geom_point()
+```
+
+Correlation for 'x' and 'y' for circle_dataset
+
+```{r cor-circle, fig.height=5, fig.width=7}
+circle_data %>%
+  summarize(r = cor(x, y))
+```
+
+Compared to dino_data, circle data's r value is slightly bigger (0.0038 more)
+
+### Exercise 5
+
+Plot of all datasets
+
+```{r all plots, fig.height=10, fig.width=7}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
+
+Every dataset's correlation coefficients
+
+```{r All correlations, echo=TRUE, fig.height=5, fig.width=7}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y)) %>%
+  print(13)
+```
